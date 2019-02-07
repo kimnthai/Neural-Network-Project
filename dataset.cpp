@@ -25,47 +25,75 @@ int main(){
 	}
 
 	// open another file
-	ofstream myfile1;
-	myfile1.open ("final.txt"); // what/where final.txt?
+	ofstream myfile1; 				// ofstream: write to final.txt
+	myfile1.open ("final.txt");		
 
-	// put ft into string PDB
+
 	while(ft>>PDB)
 	{
 		int sl;
 		cout<<PDB<<"\n"; // priting: 
 
-		std:: string pdbbmr("C:\\Users\\mreza\\Desktop\\lg\\"+PDB+".txt");
+		std:: string pdbbmr("C:\\Users\\mreza\\Desktop\\lg\\"+PDB+".txt"); // this is hard code
 		fstream fp(pdbbmr.c_str());
 
 		/* Example of the table 
-		// ------------------------------------------------------------------
-		// ATOM_Name	AmincAcid_Name	X Y Z		CHEMICAL_SHIFT				 
-		// 
-		//
-		//
-		// ----------------------------------------------------------------- */		
+		/ ---------------------------------------------------------------------------------------------
+		/ Atom_num     Res_Num     ATOM_Name	  AmincAcid_Name	 X Y Z         CHEMICAL_SHIFT				 
+		/ n  			n		 	name1		  name1				 x,y,z		   num1				
+		/ n++			n++			name2		  name2				 x,y,za2	   num2
+		/ -------------------------------------------------------------------------------------------- */		
 
 		// Variables
-		string ATOM[10000];
-		string AMIN[10000];
-		string ATOM2,AMIN2;
-		double x[10000];
+		string ATOM[10000];		// atom name
+		string AMIN[10000];		// amino acid name
+		// double x[10000];		// x,y,z coordinates
+		// double y[10000];
+		// double z[10000];
+		double chem[10000];		// chemical shift
+
+		double X[3000],Y[3000],Z[3000]; // why is there another x,y,z array for
+
+		// var for calculating G-Vector	
+		double An[3000],An2[3000];
+		double g,G,rs[10],dc,gh,gH,Gh,GH,gO,GO,gOH,GOH,gC,GC,gcd1,Gcd1,gce1,Gce1,gce2,Gce2,gz,Gz,gg,Gg,gcd2,Gcd2; 
+
+		
+		// resgister number value
+
+		int atomnumber,resnumber,res[3000];
+		int b,m;
+		
+		// what this for???
+		rs[1]=4.90; rs[2]=5.00; rs[3]=5.10; rs[4]=5.20;
+		rs[5]=5.30; rs[6]=5.40; rs[7]=5.50;rs[8]=5.6;
+		
+		// hmn.....
+		double direct,vecx,vecy,vecz,x12,x34,x32,y12,y34,y32,z12,z34,z32,D1,D2,proj1,proj2,dot1,dot2,dot3,dot4,x1,x2,x3,x4,y1,y2,y3,y4,z1,z2,z3,z4,d32;
+		double directt,vecxx,vecyy,veczz,xx12,xx34,xx32,yy12,yy34,yy32,zz12,zz34,zz32,DD1,DD2,projj1,projj2,dott1,dott2,dott3,dott4,xx1,xx2,xx3,xx4,yy1,yy2,yy3,yy4,zz1,zz2,zz3,zz4,dd32;
+		/* --------------------------------------------------
+		/ Dihedral Angle Calculation:
+		/ 
+		/ The angle between two planes, where each plane 
+		/ is defined by three atoms. 
+		/ --------------------------------------------------*/	
+
+		// Var to calculate DHA
+		// Perhaps can put this into a function and just taking the values???
+
+		int i,j; // counters i,j
+		double x[10000];		// x,y,z coordinates
 		double y[10000];
 		double z[10000];
-		double chem[10000]; // chemical shift
 
-		// chem2,xa2,ya2,za2,X[3000],Y[3000],Z[3000],An[3000],An2[3000],g,G,rs[10],dc,gh,gH,Gh,GH,gO,GO,gOH,GOH,gC,GC,gcd1,Gcd1,gce1,Gce1,gce2,Gce2,gz,Gz,gg,Gg,gcd2,Gcd2;
-		// int i,j,R,NUMBER,atomnumber,resnumber,res[3000],b,m;
-		// rs[1]=4.90; rs[2]=5.00; rs[3]=5.10; rs[4]=5.20;
-		// rs[5]=5.30; rs[6]=5.40; rs[7]=5.50;rs[8]=5.6;
-		// double direct, vecx,vecy,vecz,x12,x34,x32,y12,y34,y32,z12,z34,z32,D1,D2,proj1,proj2,dot1,dot2,dot3,dot4,x1,x2,x3,x4,y1,y2,y3,y4,z1,z2,z3,z4,d32;
-		// double directt, vecxx,vecyy,veczz,xx12,xx34,xx32,yy12,yy34,yy32,zz12,zz34,zz32,DD1,DD2,projj1,projj2,dott1,dott2,dott3,dott4,xx1,xx2,xx3,xx4,yy1,yy2,yy3,yy4,zz1,zz2,zz3,zz4,dd32;
-
+		int R,NUMBER;
+		string ATOM2,AMIN2;		
+		double xa2,ya2,za2;				
+		double chem2;
 
 	    //while(fp>>NUMBER>>R>>ATOM[NUMBER]>>AMIN[NUMBER]>>x[NUMBER]>>y[NUMBER]>>z[NUMBER]>>chem[NUMBER])
 		while(fp>>NUMBER>>R>>AMIN2>>ATOM2>>xa2>>ya2>>za2>>chem2)    
 		{     
-
 			ATOM[NUMBER] = ATOM2; 
 			AMIN[NUMBER] = AMIN2; 
 			x[NUMBER] = xa2; 
@@ -167,12 +195,13 @@ int main(){
 			}
 			////////////////////////////////////////////////
 			
-		} // end while(fp>>NUMBER>>R>>AMIN2>>ATOM2>>xa2>>ya2>>za2>>chem2)    
+		} // COMPLETE calculating DHA; end while loop(fp>>NUMBER>>R>>AMIN2>>ATOM2>>xa2>>ya2>>za2>>chem2)    
 
 		i=0;
 		res[0]=0;
-		cout << NUMBER; // wnat is number for
+		cout << NUMBER; // ???
 		
+
 		for (R=1;R<resnumber+1;R++)
 		{
 			for(i=res[R-1]+1;i<res[R]+1;i++)
@@ -343,10 +372,11 @@ int main(){
 			
 			} // what this?
 		} // what this? 2
-		}
-		myfile1.close();
+		
+	}
+	myfile1.close();
 
-		return 0;
+	return 0;
 
 } // end main
 
