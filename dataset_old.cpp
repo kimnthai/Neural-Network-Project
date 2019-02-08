@@ -40,16 +40,16 @@ fstream ft("pppp.txt",ios::in);
    double directt, vecxx,vecyy,veczz,xx12,xx34,xx32,yy12,yy34,yy32,zz12,zz34,zz32,DD1,DD2,projj1,projj2,dott1,dott2,dott3,dott4,xx1,xx2,xx3,xx4,yy1,yy2,yy3,yy4,zz1,zz2,zz3,zz4,dd32;
    //while(fp>>NUMBER>>R>>ATOM[NUMBER]>>AMIN[NUMBER]>>x[NUMBER]>>y[NUMBER]>>z[NUMBER]>>chem[NUMBER])
     while(fp>>NUMBER>>R>>AMIN2>>ATOM2>>xa2>>ya2>>za2>>chem2)
-     
+
     {
-       
+
     	ATOM[NUMBER]=ATOM2; AMIN[NUMBER]=AMIN2; x[NUMBER]=xa2; y[NUMBER]=ya2; z[NUMBER]=za2; chem[NUMBER]=chem2;
-    	
+
     i=NUMBER;
     //cout<<NUMBER<<"\n";
     atomnumber=NUMBER;
 	resnumber=R;
-		
+
     if (ATOM[NUMBER]=="N"){
     	X[R]=x[NUMBER];
     	Y[R]=y[NUMBER];
@@ -70,7 +70,7 @@ fstream ft("pppp.txt",ios::in);
 		}
 	if (ATOM[i]=="CA")
    	 {
-   	 	
+
    	x3=x[i];
 	y3=y[i];
 	z3=z[i];
@@ -88,12 +88,12 @@ fstream ft("pppp.txt",ios::in);
   An[R]=Angel(x1,y1,z1,x2,y2,z2,x3,y3,z3,x4,y4,z4);
   //cout<<An[R]<<"\n";
   b=0;
-  }	
+  }
    }
    if (ATOM[i]=="C")
    {
    	b++;
-    x1=x[i];	y1=y[i]; z1=z[i];	
+    x1=x[i];	y1=y[i]; z1=z[i];
    }
    /////////////////
    /////////////////////////////////////////////
@@ -110,16 +110,16 @@ fstream ft("pppp.txt",ios::in);
   	//cout<<An2[R]<<"\n";
   	 j=0;
 }	}
-	
+
 	if (ATOM[i]=="CA")
    	 {
    	xx2=x[i];	yy2=y[i];	zz2=z[i];
 	j++;		}
 	if (ATOM[i]=="C")
-   	 {			
+   	 {
    	xx3=x[i];	yy3=y[i];	zz3=z[i];
 	j++;	}
- 
+
    if (ATOM[i]=="N")
    {
    	j++;
@@ -132,59 +132,59 @@ fstream ft("pppp.txt",ios::in);
 	res[0]=0;
 	cout<<NUMBER;
 	for (R=1;R<resnumber+1;R++){
-	
+
 for(i=res[R-1]+1;i<res[R]+1;i++){
 	double G,g,gh,gH,Gh,GH,gO,GO,gOH,GOH,gC,GC,gcd1,Gcd1,gce1,Gce1,gce2,Gce2,gz,Gz,gg,Gg,gcd2,Gcd2;
 	//cout<<i<<"\n";
-	
+
 	string avv,ex,ey,ez;
 	avv=ATOM[i];
 	ex=AMIN[res[R]];
 	ey=AMIN[res[R-1]];
 	ez=AMIN[res[R+1]];
 	//cout<<amin(agg)<<"\n";
-	
+
 myfile1<<std::fixed << std::setprecision(8) <<AMU(amin(ey),amin(ex),amin(ez))<<"  "<<atom(avv)<<"  "<<An[R-1]<<"  "<<An[R]<<"  "<<An[R+1]<<"  "<<An2[R-1]<<"  "<<An2[R]<<"  "<<An2[R+1]<<"  ";
  if (i==NUMBER){
  	cout<<NUMBER<<"\n";
   	cout<<AMU(amin(ey),amin(ex),amin(ez))<<"  "<<atom(avv)<<"  "<<An[R-1]<<"  "<<An[R]<<"  "<<An[R+1]<<"  "<<An2[R-1]<<"  "<<An2[R]<<"  "<<An2[R+1]<<"  ";
    }
-  
+
 
  //////////////////////////////////
 	for(m=1;m<resnumber+1;m++){
-		
+
 		if(R!=m){
-		
+
 			g=Gvector(x[R],y[R],z[R],x[m],y[m],z[m],5.5,rs[1]);
-			
+
 	}
 	G=G+g;
 	}
 	myfile1<<std::fixed << std::setprecision(8) <<G<<"  ";
 	//cout<<G<<"  "<<i<<"\n";
 	G=0;
-	
 
-  
-  
-  
-  
-  
+
+
+
+
+
+
   ///////////////////////////
   	for (j=1;j<9;j++){
-	   
-	
+
+
 	for(m=1;m<atomnumber+1;m++){
-		
+
 		if(m!=i){
-			
+
 				if ( ATOM[m]=="N"){
-  	
+
   	g=Gvector(x[i],y[i],z[i],x[m],y[m],z[m],6.7,rs[j]);
-  	
+
   	G=G+g;}}}
-  	
+
   	if (G>1){
   		sl++;
 	  }
@@ -193,74 +193,74 @@ myfile1<<std::fixed << std::setprecision(8) <<AMU(amin(ey),amin(ex),amin(ez))<<"
   	G=0;
   }
   	for (j=1;j<9;j++){
-	   
-	
+
+
 	for(m=1;m<atomnumber+1;m++){
-		
+
 		if(m!=i){
-			
+
 				if ( ATOM[m]=="C"){
-  	
+
   	g=Gvector(x[i],y[i],z[i],x[m],y[m],z[m],6.7,rs[j]);
-  	
+
   	G=G+g;}}}
   	myfile1<<std::fixed << std::setprecision(8) <<G<<"  ";
   	//cout<<Gh<<"  ";
   	G=0;
   }
      	for (j=1;j<9;j++){
-	   
-	
+
+
 	for(m=1;m<atomnumber+1;m++){
-		
+
 		if(m!=i){
-			
+
 				if ( ATOM[m]=="H"){
-  	
+
   	g=Gvector(x[i],y[i],z[i],x[m],y[m],z[m],6.7,rs[j]);
-  	
+
   	G=G+g;}}}
   	myfile1<<std::fixed << std::setprecision(8) <<G<<"  ";
   	G=0;
-  }	
-  	
+  }
+
   ////////////////////////////////////////////
   	for(m=1;m<atomnumber+1;m++){
-		
+
 		if(m!=i){
-			
-				if ( ATOM[m]=="H"){	
+
+				if ( ATOM[m]=="H"){
 				gH=Gvector(x[i],y[i],z[i],x[m],y[m],z[m],6.0,rs[1]);
 				GH=GH+gH;}
-				if ( ATOM[m]=="O"){	
+				if ( ATOM[m]=="O"){
 				gO=Gvector(x[i],y[i],z[i],x[m],y[m],z[m],6.3,rs[1]);
 				GO=GO+gO;}
-				if ( ATOM[m]=="C"){	
+				if ( ATOM[m]=="C"){
 				gC=Gvector(x[i],y[i],z[i],x[m],y[m],z[m],6.0,rs[1]);
 				GC=GC+gC;}
-				if ( ATOM[m]=="OH"){	
+				if ( ATOM[m]=="OH"){
 				gOH=Gvector(x[i],y[i],z[i],x[m],y[m],z[m],6.0,rs[1]);
 				GOH=GOH+gOH;}
-				if ( ATOM[m]=="CD1"){	
+				if ( ATOM[m]=="CD1"){
 				gcd1=Gvector(x[i],y[i],z[i],x[m],y[m],z[m],5.5,rs[1]);
 				Gcd1=Gcd1+gcd1;}
-				if ( ATOM[m]=="CD2"){	
+				if ( ATOM[m]=="CD2"){
 				gcd2=Gvector(x[i],y[i],z[i],x[m],y[m],z[m],5.5,rs[1]);
 				Gcd2=Gcd2+gcd2;}
-				if ( ATOM[m]=="CE1"){	
+				if ( ATOM[m]=="CE1"){
 				gce1=Gvector(x[i],y[i],z[i],x[m],y[m],z[m],5.5,rs[1]);
 				Gce1=Gce1+gce1;}
-					if ( ATOM[m]=="CE2"){	
+					if ( ATOM[m]=="CE2"){
 				gce2=Gvector(x[i],y[i],z[i],x[m],y[m],z[m],5.5,rs[1]);
 				Gce2=Gce2+gce2;}
-					if ( ATOM[m]=="CZ"){	
+					if ( ATOM[m]=="CZ"){
 				gz=Gvector(x[i],y[i],z[i],x[m],y[m],z[m],5.5,rs[1]);
 				Gz=Gz+gz;}
-				if ( ATOM[m]=="CG"){	
+				if ( ATOM[m]=="CG"){
 				gg=Gvector(x[i],y[i],z[i],x[m],y[m],z[m],5.5,rs[1]);
 				Gg=Gg+gg;}
-				
-				
+
+
 				}}
 				myfile1<<std::fixed << std::setprecision(8) <<GH<<"  "<<GO<<"  "<<GOH<<"  "<<GC<<"  "<<Gcd1<<"  "<<Gcd2<<"  "<<Gce1<<"  "<<Gce2<<"  "<<Gz<<"  "<<Gg<<"  ";
 				if (i==200){
@@ -270,13 +270,11 @@ myfile1<<std::fixed << std::setprecision(8) <<AMU(amin(ey),amin(ex),amin(ez))<<"
 				myfile1<<std::fixed << std::setprecision(8) <<chem[i]/300<<"\n";
 			//	cout<< sl<<"\n";
 			}}
-			
-			
-			
+
+
+
 		}
 		myfile1.close();
 		return 0;
-		
-	}
-  	
-  	
+
+	} // end main
