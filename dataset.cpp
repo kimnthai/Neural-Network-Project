@@ -14,28 +14,36 @@
 using namespace std;
 
 int main(){
-	std::string PDB;
-	// open file
-	fstream ft("pppp.txt",ios::in); // get the test file contains 5 Protein File Names
+	// open file in read-only mode
+	ifstream test_file("pppp.txt"); // get the test file contains 5 Protein File Names
 
 	// check for file error
-	if(!ft)
+	if(!test_file)
 	{
-		cerr<<"File can not open!"<<endl;
+		cerr<<"Error Opening File"<<endl;
 		exit(1);
 	}
-	
-	// create myfile
-	//
+	else{
+		count << test_file<< "File is sucessfully opened"<< endl;
+	}
+
+	// display data in test_file
+	char data[100];
+	test_file >> data;
+	cout << "display " << test_file << " :" << endl;
+	cout << data << endl;
+
+	// create an output file
 	ofstream myfile1; 						// ofstream: create files and write info to file
 	myfile1.open ("final.txt");		// why do we need this final.txt?
 
-	while(ft>>PDB)
+	std::string PDB;
+	while(test_file>>PDB) 	// reading from test_file
 	{
 		int sl;
-		cout<<PDB<<"\n"; // priting:
+		cout<<PDB<<"\n"; // priting: protein file names
 
-		std:: string pdbbmr("C:\\Users\\mreza\\Desktop\\lg\\"+PDB+".txt"); // this is hard code
+		std:: string pdbbmr("C:\\Users\\mreza\\Desktop\\lg\\"+PDB+".txt"); // file path of the name
 		fstream fp(pdbbmr.c_str());
 
 		/* Example of the table
@@ -45,23 +53,22 @@ int main(){
 		/ n++			n++			name2		  name2				 x,y,za2	   num2
 		/ -------------------------------------------------------------------------------------------- */
 
-		// Variables
-		string ATOM[10000];		// atom name
-		string AMIN[10000];		// amino acid name
-		// double x[10000];		// x,y,z coordinates
-		// double y[10000];
-		// double z[10000];
-		double chem[10000];		// chemical shift
+		// // Variables
+		// string ATOM[10000];		// atom name
+		// string AMIN[10000];		// amino acid name
+		// // double x[10000];		// x,y,z coordinates
+		// // double y[10000];
+		// // double z[10000];
+		// double chem[10000];		// chemical shift
 
 		double X[3000],Y[3000],Z[3000]; // why is there another x,y,z array for
 
-		// var for calculating G-Vector
+		// var for calculating
 		double An[3000],An2[3000];
 		double g,G,rs[10],dc,gh,gH,Gh,GH,gO,GO,gOH,GOH,gC,GC,gcd1,Gcd1,gce1,Gce1,gce2,Gce2,gz,Gz,gg,Gg,gcd2,Gcd2;
 
 
 		// resgister number value
-
 		int atomnumber,resnumber,res[3000];
 		int b,m;
 
@@ -72,6 +79,7 @@ int main(){
 		// hmn.....
 		double direct,vecx,vecy,vecz,x12,x34,x32,y12,y34,y32,z12,z34,z32,D1,D2,proj1,proj2,dot1,dot2,dot3,dot4,x1,x2,x3,x4,y1,y2,y3,y4,z1,z2,z3,z4,d32;
 		double directt,vecxx,vecyy,veczz,xx12,xx34,xx32,yy12,yy34,yy32,zz12,zz34,zz32,DD1,DD2,projj1,projj2,dott1,dott2,dott3,dott4,xx1,xx2,xx3,xx4,yy1,yy2,yy3,yy4,zz1,zz2,zz3,zz4,dd32;
+
 		/* --------------------------------------------------
 		/ Dihedral Angle Calculation:
 		/
@@ -83,16 +91,25 @@ int main(){
 		// Perhaps can put this into a function and just taking the values???
 
 		int i,j; // counters i,j
+		string ATOM[10000];		// atom name
+		string AMIN[10000];		// amino acid name
 		double x[10000];		// x,y,z coordinates
 		double y[10000];
 		double z[10000];
+		double chem[10000];		// chemical shift
 
 		int R,NUMBER;
 		string ATOM2,AMIN2;
 		double xa2,ya2,za2;
 		double chem2;
 
-		//while(fp>>NUMBER>>R>>ATOM[NUMBER]>>AMIN[NUMBER]>>x[NUMBER]>>y[NUMBER]>>z[NUMBER]>>chem[NUMBER])
+		/* --------------------------------------------------
+		/ what is this for loop for?????
+		/
+		// Checking for N, CA, C
+		// have counter for N, CA, C
+		/ --------------------------------------------------*/
+
 		while(fp>>NUMBER>>R>>AMIN2>>ATOM2>>xa2>>ya2>>za2>>chem2)
 		{
 			ATOM[NUMBER] = ATOM2;
@@ -124,7 +141,6 @@ int main(){
 					x2=x[i];
 					y2=y[i];
 					z3=z[i];
-
 					b++;
 				}
 				if (ATOM[i]=="CA")
@@ -143,11 +159,12 @@ int main(){
 					b++;
 				}
 
+				// b is a counter for.....?
 				if(b>3)
 				{
 					An[R]=Angel(x1,y1,z1,x2,y2,z2,x3,y3,z3,x4,y4,z4);
 					//cout<<An[R]<<"\n";
-					b=0;
+					b=0;	// set b back to 0
 				}
 			} // end of if (R!=1)
 
@@ -193,7 +210,7 @@ int main(){
 			}
 			////////////////////////////////////////////////
 
-		} // COMPLETE calculating DHA; end while loop(fp>>NUMBER>>R>>AMIN2>>ATOM2>>xa2>>ya2>>za2>>chem2)
+		} // COMPLETE calculating ????; end while loop(fp>>NUMBER>>R>>AMIN2>>ATOM2>>xa2>>ya2>>za2>>chem2)
 
 		i=0;
 		res[0]=0;
@@ -241,7 +258,6 @@ int main(){
 				for (j=1;j<9;j++)
 				{
 					for(m=1;m<atomnumber+1;m++){
-
 						if(m!=i)
 						{
 							if ( ATOM[m]=="N"){
@@ -359,7 +375,7 @@ int main(){
 				//	cout<< sl<<"\n";
 
 			}
-		} // end for loop
+		} // 	what is this for loop??????
 
 	}
 

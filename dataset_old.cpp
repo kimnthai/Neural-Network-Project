@@ -35,9 +35,9 @@ fstream ft("pppp.txt",ios::in);
     	double x[10000],y[10000],z[10000],chem[10000],chem2,xa2,ya2,za2,X[3000],Y[3000],Z[3000],An[3000],An2[3000],g,G,rs[10],dc,gh,gH,Gh,GH,gO,GO,gOH,GOH,gC,GC,gcd1,Gcd1,gce1,Gce1,gce2,Gce2,gz,Gz,gg,Gg,gcd2,Gcd2;
     	int i,j,R,NUMBER,atomnumber,resnumber,res[3000],b,m;
     	rs[1]=4.90; rs[2]=5.00; rs[3]=5.10; rs[4]=5.20;
- rs[5]=5.30; rs[6]=5.40; rs[7]=5.50;rs[8]=5.6;
+      rs[5]=5.30; rs[6]=5.40; rs[7]=5.50;rs[8]=5.6;
     	double direct, vecx,vecy,vecz,x12,x34,x32,y12,y34,y32,z12,z34,z32,D1,D2,proj1,proj2,dot1,dot2,dot3,dot4,x1,x2,x3,x4,y1,y2,y3,y4,z1,z2,z3,z4,d32;
-   double directt, vecxx,vecyy,veczz,xx12,xx34,xx32,yy12,yy34,yy32,zz12,zz34,zz32,DD1,DD2,projj1,projj2,dott1,dott2,dott3,dott4,xx1,xx2,xx3,xx4,yy1,yy2,yy3,yy4,zz1,zz2,zz3,zz4,dd32;
+      double directt, vecxx,vecyy,veczz,xx12,xx34,xx32,yy12,yy34,yy32,zz12,zz34,zz32,DD1,DD2,projj1,projj2,dott1,dott2,dott3,dott4,xx1,xx2,xx3,xx4,yy1,yy2,yy3,yy4,zz1,zz2,zz3,zz4,dd32;
    //while(fp>>NUMBER>>R>>ATOM[NUMBER]>>AMIN[NUMBER]>>x[NUMBER]>>y[NUMBER]>>z[NUMBER]>>chem[NUMBER])
     while(fp>>NUMBER>>R>>AMIN2>>ATOM2>>xa2>>ya2>>za2>>chem2)
 
